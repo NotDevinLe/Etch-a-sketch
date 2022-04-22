@@ -2,45 +2,60 @@ const container = document.querySelector(".holder");
 
 // Draw default template
 function drawTemplate(pixels = 16) {
-    let pixel_size = 850 / pixels
-    for (let i = 0; i < pixels; i++) {
+    let pixel_size = 798 / pixels // 798 because template size is 800 px but have to account for border
+    for (let i = 0; i < pixels ** 2; i++) {
         const div = document.createElement("div");
         container.appendChild(div);
-        div.classList.add("rows");
-
-        for (let x = 0; x < pixels; x++) {
-            const square = document.createElement("div");
-            div.appendChild(square);
-            square.classList.add("squares");
-        }
+        div.classList.add("squares");
+        div.style.width = `${pixel_size}px`
+        div.style.height = `${pixel_size}px`
     }
+    clear();
+    painting();
 }
 
 drawTemplate(16);
 
 // Painting the template function
-const squares = document.querySelectorAll(".squares")
-squares.forEach(function (square) {
-    square.addEventListener("mouseover", function () {
-        square.classList.add("color-black")
+function painting() {
+    const squares = document.querySelectorAll(".squares")
+    squares.forEach(function (square) {
+        square.addEventListener("mouseover", function () {
+            square.classList.add("color-black")
+        })
     })
-})
+}
 
 // Clearing the template
-const clear = document.querySelector(".clear")
-clear.addEventListener("click", function () {
-    squares.forEach(function (square) {
-        square.classList.remove("color-black")
+function clear() {
+    const clear = document.querySelector(".clear")
+    const squares = document.querySelectorAll(".squares")
+    clear.addEventListener("click", function () {
+        squares.forEach(function (square) {
+            square.classList.remove("color-black")
+        })
     })
-})
+}
 
 // Controlling Grid Pixels
-// const edit_grid = document.querySelector(".edit-grid")
-// edit_grid.addEventListener("click", function () {
-//     const rows = document.querySelectorAll(".rows")
-//     rows.forEach(function(row) {
-//         rows.removeChild(row)
-//     })
-//     let numOfPixels = prompt("Pixels:")
-//     drawTemplate(numOfPixels);
-// })
+const edit_grid = document.querySelector(".edit-grid")
+edit_grid.addEventListener("click", function () {
+    let numOfPixels = Number(prompt("Pixels:"))
+    if (numOfPixels > 0 && numOfPixels <= 100) {
+        const squares = document.querySelectorAll(".squares")
+        squares.forEach(function (square) {
+            container.removeChild(square)
+            console.log(square)
+        })
+        drawTemplate(numOfPixels);
+    }
+    else if (numOfPixels > 100) {
+        alert("Number of pixels must be less than or equal to 100.")
+    }
+    else if (numOfPixels <= 0) {
+        alert("Number of pixels be above 0.")
+    }
+    else {
+        alert("Please enter a number.")
+    }
+})

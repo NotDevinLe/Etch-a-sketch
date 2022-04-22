@@ -8,13 +8,13 @@ body {
 
 .holder {
     display: flex;
-    flex-direction: column;
     align-items: center;
+    margin-top: 20px;
+    width: 800px;
+    height: 800px;
     border-style: solid;
     border-width: 1px;
-    margin-top: 20px;
-    min-width: 800px;
-    min-height: 800px;
+    flex-wrap: wrap;
 }
 
 /* Top */
@@ -31,19 +31,17 @@ body {
 
 /* Painting */
 
-.rows {
+/* .rows {
     display: flex;
     justify-content: space-evenly;
     align-items: center;
-}
+} */
 
 .squares {
-    border-style: solid;
-    border-width: 1px;
-    min-width: 50px;
-    min-height: 50px;
+    color: white;
 }
 
 .color-black {
     background-color: black;
+    color: black;
 }
